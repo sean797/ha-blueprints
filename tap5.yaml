@@ -106,13 +106,13 @@ blueprint:
       selector:
         action: {}
     button_top_left_x1:
-      name: Left button - single click
+      name: Top left button - single click
       description: Action to run on single left button click.
       default: []
       selector:
         action: {}
     button_top_left_x1_immediate:
-      name: Left button - single click (immediate response)
+      name: Top left button - single click (immediate response)
       description:
         Action to run as soon as the left button is clicked, without waiting
         if there's a second click or not.
@@ -120,13 +120,13 @@ blueprint:
       selector:
         action: {}
     button_top_left_x2:
-      name: Left button - double click
+      name: Top left button - double click
       description: Action to run on double left button click.
       default: []
       selector:
         action: {}
     button_top_left_x2_immediate:
-      name: Left button - double click (immediate response)
+      name: Top left button - double click (immediate response)
       description:
         Action to run as soon as the left button is clicked the second
         time, without waiting if there's a third click or not.
@@ -134,37 +134,37 @@ blueprint:
       selector:
         action: {}
     button_top_left_x3:
-      name: Left button - triple click
+      name: Top left button - triple click
       description: Action to run on triple left button click.
       default: []
       selector:
         action: {}
     button_top_left_hold:
-      name: Left button - hold
+      name: Top left button - hold
       description: Action to run on left button hold.
       default: []
       selector:
         action: {}
     button_top_left_hold_repeated:
-      name: Left button - hold - repeated
+      name: Top left button - hold - repeated
       description: Action to run repeated on left button hold.
       default: []
       selector:
         action: {}
     button_top_left_release:
-      name: Left button - release
+      name: Top left button - release
       description: Action to run on left button release.
       default: []
       selector:
         action: {}
     button_top_right_x1:
-      name: Right button - single click
+      name: Top right button - single click
       description: Action to run on single right button click.
       default: []
       selector:
         action: {}
     button_top_right_x1_immediate:
-      name: Right button - single click (immediate response)
+      name: Top right button - single click (immediate response)
       description:
         Action to run as soon as the right button is clicked, without waiting
         if there's a second click or not.
@@ -172,13 +172,13 @@ blueprint:
       selector:
         action: {}
     button_top_right_x2:
-      name: Right button - double click
+      name: Top right button - double click
       description: Action to run on double right button click.
       default: []
       selector:
         action: {}
     button_top_right_x2_immediate:
-      name: Right button - double click (immediate response)
+      name: Top right button - double click (immediate response)
       description:
         Action to run as soon as the right button is clicked the second
         time, without waiting if there's a third click or not.
@@ -186,37 +186,37 @@ blueprint:
       selector:
         action: {}
     button_top_right_x3:
-      name: Right button - triple click
+      name: Top right button - triple click
       description: Action to run on triple right button click.
       default: []
       selector:
         action: {}
     button_top_right_hold:
-      name: Right button - hold
+      name: Top right button - hold
       description: Action to run on right button hold.
       default: []
       selector:
         action: {}
     button_top_right_hold_repeated:
-      name: Right button - hold - repeated
+      name: Top right button - hold - repeated
       description: Action to run repeated on right button hold.
       default: []
       selector:
         action: {}
     button_top_right_release:
-      name: Right button - release
+      name: Top right button - release
       description: Action to run on right button release.
       default: []
       selector:
         action: {}
     button_bottom_left_x1:
-      name: Up button - single click
+      name: Bottom left button - single click
       description: Action to run on single up button click.
       default: []
       selector:
         action: {}
     button_bottom_left_x1_immediate:
-      name: Up button - single click (immediate response)
+      name: Bottom left button - single click (immediate response)
       description:
         Action to run as soon as the up button is clicked, without waiting
         if there's a second click or not.
@@ -224,13 +224,13 @@ blueprint:
       selector:
         action: {}
     button_bottom_left_x2:
-      name: Up button - double click
+      name: Bottom left button - double click
       description: Action to run on double up button click.
       default: []
       selector:
         action: {}
     button_bottom_left_x2_immediate:
-      name: Up button - double click (immediate response)
+      name: Bottom left button - double click (immediate response)
       description:
         Action to run as soon as the up button is clicked the second time,
         without waiting if there's a second click or not.
@@ -238,37 +238,37 @@ blueprint:
       selector:
         action: {}
     button_bottom_left_x3:
-      name: Up button - triple click
+      name: Bottom left button - triple click
       description: Action to run on triple up button click.
       default: []
       selector:
         action: {}
     button_bottom_left_hold:
-      name: Up button - hold
+      name: Bottom left button - hold
       description: Action to run on up button hold.
       default: []
       selector:
         action: {}
     button_bottom_left_hold_repeated:
-      name: Up button - hold - repeated
+      name: Bottom left button - hold - repeated
       description: Action to run repeated on up button hold.
       default: []
       selector:
         action: {}
     button_bottom_left_release:
-      name: Up button - release
+      name: Bottom left button - release
       description: Action to run on up button release.
       default: []
       selector:
         action: {}
     button_bottom_right_x1:
-      name: Down button - single click
+      name: Bottom right button - single click
       description: Action to run on single down button click.
       default: []
       selector:
         action: {}
     button_bottom_right_x1_immediate:
-      name: Down button - single click (immediate response)
+      name: Bottom right button - single click (immediate response)
       description:
         Action to run as soon as the down button is clicked, without waiting
         if there's a second click or not.
@@ -276,13 +276,13 @@ blueprint:
       selector:
         action: {}
     button_bottom_right_x2:
-      name: Down button - double click
+      name: Bottom right button - double click
       description: Action to run on double down button click.
       default: []
       selector:
         action: {}
     button_bottom_right_x2_immediate:
-      name: Down button - double click (immediate response)
+      name: Bottom right button - double click (immediate response)
       description:
         Action to run as soon as the down button is clicked the second
         time, without waiting if there's a third click or not.
@@ -290,25 +290,25 @@ blueprint:
       selector:
         action: {}
     button_bottom_right_x3:
-      name: Down button - triple click
+      name: Bottom right button - triple click
       description: Action to run on triple down button click.
       default: []
       selector:
         action: {}
     button_bottom_right_hold:
-      name: Down button - hold
+      name: Bottom right button - hold
       description: Action to run on down button hold.
       default: []
       selector:
         action: {}
     button_bottom_right_hold_repeated:
-      name: Down button - hold - repeated
+      name: Bottom right button - hold - repeated
       description: Action to run repeated on down button hold.
       default: []
       selector:
         action: {}
     button_bottom_right_release:
-      name: Down button - release
+      name: Bottom right button - release
       description: Action to run on down button release.
       default: []
       selector:
@@ -393,7 +393,7 @@ action:
                 else: !input button_center_x3
 
       ####################################
-      #            Bottom Left button             #
+      #            Bottom Top left button             #
       ####################################
       - conditions:
           - condition: trigger
@@ -459,7 +459,7 @@ action:
             default: !input button_bottom_left_release
 
       ####################################
-      #           Down button            #
+      #           Bottom right button            #
       ####################################
       - conditions:
           - condition: trigger
@@ -525,7 +525,7 @@ action:
             default: !input button_bottom_right_release
 
       ####################################
-      #           Top Left button            #
+      #           Top left button            #
       ####################################
       - conditions:
           - condition: trigger
@@ -591,7 +591,7 @@ action:
             default: !input button_top_left_release
 
       ####################################
-      #           Top Right button           #
+      #           Top right button           #
       ####################################
       - conditions:
           - condition: trigger
