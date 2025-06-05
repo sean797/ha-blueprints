@@ -568,7 +568,7 @@ action:
       - conditions:
           - condition: trigger
             id: button_top_left_tigger
-            for: "{{interval}}"
+         #   for: "{{interval}}"
         sequence:
           # Hold left button
           - choose: []
