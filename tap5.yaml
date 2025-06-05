@@ -333,7 +333,7 @@ variables:
   button_bottom_right_entity: !input button_bottom_right_entity
 
 trigger:
-  - tigger: state
+  - trigger: state
     entity_id: !input button_center_entity
     id: button_center_tigger
   - trigger: state
