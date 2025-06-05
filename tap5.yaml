@@ -393,7 +393,7 @@ action:
                 else: !input button_center_x3
 
       ####################################
-      #            Bottom Top left button             #
+      #            Bottom left button             #
       ####################################
       - conditions:
           - condition: trigger
