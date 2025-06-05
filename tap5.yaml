@@ -1,6 +1,6 @@
 blueprint:
-  source_url: https://github.com/BlackCube4/HA-IKEA-5-button-remote
-  name: Tap5 button remote (double and triple clicks)
+  source_url: https://github.com/BlackCube4/HA-IKEA-5-button
+  name: Tap5 button (double and triple clicks)
   description:
     "Control anything with an Tap5 via digital inputs.
     Every button is fully customizable and can be double and triple clicked.
@@ -370,7 +370,7 @@ action:
           - if:
               - condition: template
                 value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
-            # 1x-Press middle button
+            # 1x-Press center button
             then: !input button_center_x1
             else:
               - variables:
@@ -387,54 +387,50 @@ action:
               - if:
                   - condition: template
                     value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
-                # 2x-Press middle button
+                # 2x-Press center button
                 then: !input button_center_x2
-                # 3x-Press middle button
+                # 3x-Press center button
                 else: !input button_center_x3
 
       ####################################
-      #            Up button             #
+      #            Bottom Left button             #
       ####################################
       - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.command == "step_with_on_off" }}'
+          - condition: trigger
+            id: button_bottom_left_tigger
         sequence:
-          # Immediate 1x-Press up button
+          # Immediate 1x-Press bottom left button
           - choose: []
             default: !input button_bottom_left_x1_immediate
           - wait_for_trigger:
-              - device_id: !input remote
-                domain: zha
-                platform: device
-                type: remote_button_short_press
-                subtype: dim_up
+              - trigger: state 
+                entity_id: !input button_bottom_left_entity
+                to: 'on' 
             timeout: "{{interval}}"
             continue_on_timeout: true
           - if:
               - condition: template
                 value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
-            # 1x-Press up button
+            # 1x-Press bottom left button
             then: !input button_bottom_left_x1
             else:
               - variables:
                   time: " {{ as_timestamp(now()) }} "
-              # Immediate 2x-Press up button
+              # Immediate 2x-Press bottom left button
               - choose: []
                 default: !input button_bottom_left_x2_immediate
               - wait_for_trigger:
-                  - device_id: !input remote
-                    domain: zha
-                    platform: device
-                    type: remote_button_short_press
-                    subtype: dim_up
+                  - trigger: state 
+                    entity_id: !input button_center_entity
+                    to: 'on'
                 timeout: "{{interval}}"
                 continue_on_timeout: true
               - if:
                   - condition: template
                     value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
-                # 2x-Press up button
+                # 2x-Press bottom left button
                 then: !input button_bottom_left_x2
-                # 3x-Press up button
+                # 3x-Press bottom left button
                 else: !input button_bottom_left_x3
       # Hold up button
       - conditions:
@@ -453,11 +449,10 @@ action:
                 - choose: []
                   default: !input button_bottom_left_hold_repeated
                 - wait_for_trigger:
-                    - platform: event
-                      event_type: zha_event
-                      event_data:
-                        device_id: !input remote
-                        command: stop_with_on_off
+                    - trigger: state
+                      entity_id: !input button_center_entity
+                      from: 'on'
+                      to: 'off'
                   timeout: "{{repeat_interval}}"
           # Release up button
           - choose: []
@@ -467,18 +462,16 @@ action:
       #           Down button            #
       ####################################
       - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.command == "step" }}'
+          - condition: trigger
+            id: button_bottom_right_tigger
         sequence:
           # Immediate 1x-Press down button
           - choose: []
             default: !input button_bottom_right_x1_immediate
           - wait_for_trigger:
-              - device_id: !input remote
-                domain: zha
-                platform: device
-                type: remote_button_short_press
-                subtype: dim_down
+              - trigger: state
+                entity_id: !input button_bottom_right_entity
+                from: 'on'
             timeout: "{{interval}}"
             continue_on_timeout: true
           - if:
@@ -493,11 +486,9 @@ action:
               - choose: []
                 default: !input button_bottom_right_x2_immediate
               - wait_for_trigger:
-                  - device_id: !input remote
-                    domain: zha
-                    platform: device
-                    type: remote_button_short_press
-                    subtype: dim_down
+                  - trigger: state
+                    entity_id: !input button_bottom_right_entity
+                    from: 'on'
                 timeout: "{{interval}}"
                 continue_on_timeout: true
               - if:
@@ -524,11 +515,10 @@ action:
                 - choose: []
                   default: !input button_bottom_right_hold_repeated
                 - wait_for_trigger:
-                    - platform: event
-                      event_type: zha_event
-                      event_data:
-                        device_id: !input remote
-                        command: stop
+                    - trigger: state
+                      entity_id: !input button_bottom_right_entity
+                      from: 'on'
+                      to: 'off'
                   timeout: "{{repeat_interval}}"
           # Release down button
           - choose: []
@@ -538,20 +528,16 @@ action:
       #           Top Left button            #
       ####################################
       - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.command == "press" }}'
-          - condition: template
-            value_template: "{{ trigger.event.data.args == [257,13,0] }}"
+          - condition: trigger
+            id: button_top_left_tigger
         sequence:
           # Immediate 1x-Press top left button
           - choose: []
             default: !input button_top_left_x1_immediate
           - wait_for_trigger:
-              - device_id: !input remote
-                domain: zha
-                platform: device
-                type: remote_button_short_press
-                subtype: left
+              - trigger: state 
+                entity_id: !input button_top_left_entity
+                to: 'on'
             timeout: "{{interval}}"
             continue_on_timeout: true
           - if:
@@ -566,11 +552,9 @@ action:
               - choose: []
                 default: !input button_top_left_x2_immediate
               - wait_for_trigger:
-                  - device_id: !input remote
-                    domain: zha
-                    platform: device
-                    type: remote_button_short_press
-                    subtype: left
+                  - trigger: state 
+                    entity_id: !input button_top_left_entity
+                    to: 'on'
                 timeout: "{{interval}}"
                 continue_on_timeout: true
               - if:
@@ -582,10 +566,9 @@ action:
                 else: !input button_top_left_x3
       # Hold left button
       - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.command == "hold" }}'
-          - condition: template
-            value_template: "{{ trigger.event.data.args == [3329,0] }}"
+          - condition: trigger
+            id: button_top_left_tigger
+            for: "{{interval}}"
         sequence:
           # Hold left button
           - choose: []
@@ -599,11 +582,10 @@ action:
                 - choose: []
                   default: !input button_top_left_hold_repeated
                 - wait_for_trigger:
-                    - platform: event
-                      event_type: zha_event
-                      event_data:
-                        device_id: !input remote
-                        command: "release"
+                    - trigger: state 
+                      entity_id: !input button_top_left_entity
+                      to: 'off'
+                      from: 'on'
                   timeout: "{{repeat_interval}}"
           # Release left button
           - choose: []
@@ -613,20 +595,17 @@ action:
       #           Top Right button           #
       ####################################
       - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.command == "press" }}'
-          - condition: template
-            value_template: "{{ trigger.event.data.args == [256,13,0] }}"
+          - condition: trigger
+            id: button_top_right_tigger
+            to: 'on'
         sequence:
           # Immediate 1x-Press top right button
           - choose: []
             default: !input button_top_right_x1_immediate
           - wait_for_trigger:
-              - device_id: !input remote
-                domain: zha
-                platform: device
-                type: remote_button_short_press
-                subtype: right
+              - trigger: state
+                entity_id: !input button_top_left_entity
+                to: 'on'
             timeout: "{{interval}}"
             continue_on_timeout: true
           - if:
@@ -641,11 +620,9 @@ action:
               - choose: []
                 default: !input button_top_right_x2_immediate
               - wait_for_trigger:
-                  - device_id: !input remote
-                    domain: zha
-                    platform: device
-                    type: remote_button_short_press
-                    subtype: right
+                  - trigger: state
+                    entity_id: !input button_top_left_entity
+                    to: 'on'
                 timeout: "{{interval}}"
                 continue_on_timeout: true
               - if:
@@ -674,11 +651,10 @@ action:
                 - choose: []
                   default: !input button_top_right_hold_repeated
                 - wait_for_trigger:
-                    - platform: event
-                      event_type: zha_event
-                      event_data:
-                        device_id: !input remote
-                        command: "release"
+                    - trigger: state
+                      entity_id: !input button_top_right_entity
+                      to: 'off'
+                      from: 'on'
                   timeout: "{{repeat_interval}}"
           # Release right button
           - choose: []
