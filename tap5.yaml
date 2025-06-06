@@ -296,6 +296,14 @@ trigger:
     entity_id: !input button_bottom_right_entity
     id: button_bottom_right_trigger
     to: 'off'
+  - trigger: state
+    entity_id: !input button_bottom_right_entity
+    id: button_bottom_right_trigger_hold
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
 
 action:
   - choose:
@@ -429,10 +437,11 @@ action:
                 then: !input button_bottom_right_x2
                 # 3x-Press down button
                 else: !input button_bottom_right_x3
+
       # Hold down button
       - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.command == "move" }}'
+          - condition: trigger
+            id: button_bottom_right_trigger_hold
         sequence:
           # Hold down button
           - choose: []
@@ -448,15 +457,15 @@ action:
                 - wait_for_trigger:
                     - trigger: state
                       entity_id: !input button_bottom_right_entity
-                      from: 'on'
                       to: 'off'
+                      from: 'on'
                   timeout: "{{repeat_interval}}"
           # Release down button
           - choose: []
             default: !input button_bottom_right_release
 
       ####################################
-      #           Top left button            #
+      #           Top left button        #
       ####################################
       - conditions:
           - condition: trigger
