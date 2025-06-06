@@ -10,77 +10,6 @@ blueprint:
   homeassistant:
     min_version: 2024.6.0
   input:
-    entities:
-      name: Entities
-      input:
-        button_center_entity:
-          name: Center button
-          description: Select the sensor you wish to use.
-          selector:
-            entity:
-              domain: binary_sensor
-        button_top_left_entity:
-          name: Top left button
-          description: Select the sensor you wish to use.
-          selector:
-            entity:
-              domain: binary_sensor
-        button_top_right_entity:
-          name: Top right button
-          description: Select the sensor you wish to use.
-          selector:
-            entity:
-              domain: binary_sensor
-        button_bottom_left_entity:
-          name: Bottom left button
-          description: Select the sensor you wish to use.
-          selector:
-            entity:
-              domain: binary_sensor
-        button_bottom_right_entity:
-          name: Bottom right button
-          description: Select the sensor you wish to use.
-          selector:
-            entity:
-              domain: binary_sensor
-    settings:
-      name: Settings
-      collapsed: true
-      input:
-        interval:
-          name: Max Interval between Clicks
-          description:
-            Maximum time interval between two clicks. Corresponds to the delay
-            from the last click to the triggering of the action.
-          default: 0.25
-          selector:
-            number:
-              min: 0.05
-              max: 2.0
-              unit_of_measurement: seconds
-              step: 0.01
-              mode: box
-        repeat_interval:
-          name: Interval between repeats
-          description: Time interval between repeats when holding up/down/left/right.
-          default: 0.3
-          selector:
-            number:
-              min: 0.05
-              max: 10.0
-              unit_of_measurement: seconds
-              step: 0.01
-              mode: box
-        repeat_count:
-          name: Max number of repeats
-          description: Max number of repeats. (when holding)
-          default: 100
-          selector:
-            number:
-              min: 0
-              max: 2000
-              step: 1
-              mode: box
     center_button:
       name: Center button
       collapsed: true
@@ -263,6 +192,77 @@ blueprint:
           default: []
           selector:
             action: {}
+    settings:
+      name: Settings
+      collapsed: true
+      input:
+        interval:
+          name: Max Interval between Clicks
+          description:
+            Maximum time interval between two clicks. Corresponds to the delay
+            from the last click to the triggering of the action.
+          default: 0.25
+          selector:
+            number:
+              min: 0.05
+              max: 2.0
+              unit_of_measurement: seconds
+              step: 0.01
+              mode: box
+        repeat_interval:
+          name: Interval between repeats
+          description: Time interval between repeats when holding up/down/left/right.
+          default: 0.3
+          selector:
+            number:
+              min: 0.05
+              max: 10.0
+              unit_of_measurement: seconds
+              step: 0.01
+              mode: box
+        repeat_count:
+          name: Max number of repeats
+          description: Max number of repeats. (when holding)
+          default: 100
+          selector:
+            number:
+              min: 0
+              max: 2000
+              step: 1
+              mode: box
+    entities:
+      name: Entities
+      input:
+        button_center_entity:
+          name: Center button
+          description: Select the sensor you wish to use.
+          selector:
+            entity:
+              domain: binary_sensor
+        button_top_left_entity:
+          name: Top left button
+          description: Select the sensor you wish to use.
+          selector:
+            entity: 
+              domain: binary_sensor
+        button_top_right_entity:
+          name: Top right button
+          description: Select the sensor you wish to use.
+          selector:
+            entity:
+              domain: binary_sensor
+        button_bottom_left_entity:
+          name: Bottom left button
+          description: Select the sensor you wish to use.
+          selector: 
+            entity:
+              domain: binary_sensor
+        button_bottom_right_entity:
+          name: Bottom right button
+          description: Select the sensor you wish to use.
+          selector:
+            entity:
+              domain: binary_sensor
 
 ###########################################
 #                 Start                   #
