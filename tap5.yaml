@@ -12,6 +12,7 @@ blueprint:
   input:
     center_button:
       name: Center button
+      icon: mdi:bullseye-arrow
       collapsed: true
       input:
         button_center_x1:
@@ -34,6 +35,7 @@ blueprint:
             action: {}
     top_left_button:
       name: Top left button
+      icon: mdi:arrow-top-left
       collapsed: true
       input:
         button_top_left_x1:
@@ -74,6 +76,7 @@ blueprint:
             action: {}
     top_right_button:
       name: Top right button
+      icon: mdi:arrow-top-right
       collapsed: true
       input:
         button_top_right_x1:
@@ -114,6 +117,7 @@ blueprint:
             action: {}
     bottom_left_button:
       name: Bottom left button
+      icon: mdi:arrow-bottom-left
       collapsed: true
       input:
         button_bottom_left_x1:
@@ -154,6 +158,7 @@ blueprint:
             action: {}
     bottom_right_button:
       name: Bottom right button
+      icon: mdi:arrow-bottom-right
       collapsed: true
       input:
         button_bottom_right_x1:
