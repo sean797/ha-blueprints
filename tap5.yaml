@@ -340,7 +340,11 @@ trigger:
   - trigger: state
     entity_id: !input button_top_left_entity
     id: button_top_left_tigger
-#    to: 'on'
+    to: 'off'
+  - trigger: state
+    entity_id: !input button_top_left_entity
+    id: button_top_left_tigger_hold
+    to: 'on'
   - trigger: state
     entity_id: !input button_top_right_entity
     id: button_top_right_tigger
@@ -549,22 +553,7 @@ action:
               - condition: template
                 value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
             # 1x-Press left button
-            then:
-              - variables:
-                  time: " {{ as_timestamp(now()) }} "
-              - wait_for_trigger:
-                  - trigger: state
-                    entity_id: !input button_top_left_entity
-                    to: 'off'
-                    from: 'on'
-                timeout: "{{interval}}"
-                continue_on_timeout: true
-              - if:
-                - condition: template
-#                  value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
-                  value_template: " {{ as_timestamp(trigger.to_state.last_updated) - as_timestamp(trigger.from_state.last_updated)  > interval }}"
-                then: !input button_top_left_x1
-                else: !input button_top_left_hold
+            then: !input button_top_left_x1
             else:
               - variables:
                   time: " {{ as_timestamp(now()) }} "
@@ -584,31 +573,32 @@ action:
                 then: !input button_top_left_x2
                 # 3x-Press left button
                 else: !input button_top_left_x3
-#      # Hold left button
-#      - conditions:
-#          - condition: trigger
-#            id: button_top_left_tigger
-#        sequence:
-#          # Hold left button
-#          - choose: []
-#            default: !input button_top_left_hold
-#          - repeat:
-#              until:
-#                - condition: template
-#                  value_template: "{{ wait.trigger is not none or repeat.index >= repeat_count }}"
-#              sequence:
-#                # Hold left button repeated
-#                - choose: []
-#                  default: !input button_top_left_hold_repeated
-#                - wait_for_trigger:
-#                    - trigger: state 
-#                      entity_id: !input button_top_left_entity
-#                      to: 'off'
-#                      from: 'on'
-#                  timeout: "{{repeat_interval}}"
-#          # Release left button
-#          - choose: []
-#            default: !input button_top_left_release
+
+      # Hold left button
+      - conditions:
+          - condition: trigger
+            id: button_top_left_tigger_hold
+        sequence:
+          # Hold left button
+          - choose: []
+            default: !input button_top_left_hold
+          - repeat:
+              until:
+                - condition: template
+                  value_template: "{{ wait.trigger is not none or repeat.index >= repeat_count }}"
+              sequence:
+                # Hold left button repeated
+                - choose: []
+                  default: !input button_top_left_hold_repeated
+                - wait_for_trigger:
+                    - trigger: state 
+                      entity_id: !input button_top_left_entity
+                      to: 'off'
+                      from: 'on'
+                  timeout: "{{repeat_interval}}"
+          # Release left button
+          - choose: []
+            default: !input button_top_left_release
 
       ####################################
       #           Top right button           #
