@@ -255,14 +255,14 @@ variables:
 trigger:
   - trigger: state
     entity_id: !input button_center_entity
-    id: button_center_tigger
+    id: button_center_trigger
   - trigger: state
     entity_id: !input button_top_left_entity
-    id: button_top_left_tigger
+    id: button_top_left_trigger
     to: 'off'
   - trigger: state
     entity_id: !input button_top_left_entity
-    id: button_top_left_tigger_hold
+    id: button_top_left_trigger_hold
     to: 'on'
     for: 
       hours: 0
@@ -270,15 +270,15 @@ trigger:
       seconds: 1
   - trigger: state
     entity_id: !input button_top_right_entity
-    id: button_top_right_tigger
+    id: button_top_right_trigger
     to: 'off'
   - trigger: state
     entity_id: !input button_bottom_left_entity
-    id: button_bottom_left_tigger
+    id: button_bottom_left_trigger
     to: 'off'
   - trigger: state
     entity_id: !input button_bottom_right_entity
-    id: button_bottom_right_tigger
+    id: button_bottom_right_trigger
     to: 'off'
 
 action:
@@ -288,7 +288,7 @@ action:
       ####################################
       - conditions:
           - condition: trigger
-            id: button_center_tigger
+            id: button_center_trigger
         sequence:
           - wait_for_trigger:
               - trigger: state 
@@ -323,7 +323,7 @@ action:
       ####################################
       - conditions:
           - condition: trigger
-            id: button_bottom_left_tigger
+            id: button_bottom_left_trigger
         sequence:
           - wait_for_trigger:
               - trigger: state 
@@ -384,7 +384,7 @@ action:
       ####################################
       - conditions:
           - condition: trigger
-            id: button_bottom_right_tigger
+            id: button_bottom_right_trigger
         sequence:
           - wait_for_trigger:
               - trigger: state
@@ -444,7 +444,7 @@ action:
       ####################################
       - conditions:
           - condition: trigger
-            id: button_top_left_tigger
+            id: button_top_left_trigger
         sequence:
           - wait_for_trigger:
               - trigger: state 
@@ -477,7 +477,7 @@ action:
       # Hold left button
       - conditions:
           - condition: trigger
-            id: button_top_left_tigger_hold
+            id: button_top_left_trigger_hold
         sequence:
           # Hold left button
           - choose: []
@@ -505,7 +505,7 @@ action:
       ####################################
       - conditions:
           - condition: trigger
-            id: button_top_right_tigger
+            id: button_top_right_trigger
         sequence:
           - wait_for_trigger:
               - trigger: state
