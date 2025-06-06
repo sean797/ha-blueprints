@@ -77,25 +77,9 @@ blueprint:
       default: []
       selector:
         action: {}
-    button_center_x1_immediate:
-      name: Center button - single click (immediate response)
-      description:
-        Action to run as soon as the center button is clicked, without
-        waiting if there's a second click or not.
-      default: []
-      selector:
-        action: {}
     button_center_x2:
       name: Center button - double click
       description: Action to run on double center button click.
-      default: []
-      selector:
-        action: {}
-    button_center_x2_immediate:
-      name: Center button - double click (immediate response)
-      description:
-        Action to run as soon as the center button is clicked the second
-        time, without waiting if there's a third click or not.
       default: []
       selector:
         action: {}
@@ -147,25 +131,9 @@ blueprint:
       default: []
       selector:
         action: {}
-    button_top_right_x1_immediate:
-      name: Top right button - single click (immediate response)
-      description:
-        Action to run as soon as the right button is clicked, without waiting
-        if there's a second click or not.
-      default: []
-      selector:
-        action: {}
     button_top_right_x2:
       name: Top right button - double click
       description: Action to run on double right button click.
-      default: []
-      selector:
-        action: {}
-    button_top_right_x2_immediate:
-      name: Top right button - double click (immediate response)
-      description:
-        Action to run as soon as the right button is clicked the second
-        time, without waiting if there's a third click or not.
       default: []
       selector:
         action: {}
@@ -199,25 +167,9 @@ blueprint:
       default: []
       selector:
         action: {}
-    button_bottom_left_x1_immediate:
-      name: Bottom left button - single click (immediate response)
-      description:
-        Action to run as soon as the up button is clicked, without waiting
-        if there's a second click or not.
-      default: []
-      selector:
-        action: {}
     button_bottom_left_x2:
       name: Bottom left button - double click
       description: Action to run on double up button click.
-      default: []
-      selector:
-        action: {}
-    button_bottom_left_x2_immediate:
-      name: Bottom left button - double click (immediate response)
-      description:
-        Action to run as soon as the up button is clicked the second time,
-        without waiting if there's a second click or not.
       default: []
       selector:
         action: {}
@@ -251,25 +203,9 @@ blueprint:
       default: []
       selector:
         action: {}
-    button_bottom_right_x1_immediate:
-      name: Bottom right button - single click (immediate response)
-      description:
-        Action to run as soon as the down button is clicked, without waiting
-        if there's a second click or not.
-      default: []
-      selector:
-        action: {}
     button_bottom_right_x2:
       name: Bottom right button - double click
       description: Action to run on double down button click.
-      default: []
-      selector:
-        action: {}
-    button_bottom_right_x2_immediate:
-      name: Bottom right button - double click (immediate response)
-      description:
-        Action to run as soon as the down button is clicked the second
-        time, without waiting if there's a third click or not.
       default: []
       selector:
         action: {}
@@ -355,9 +291,6 @@ action:
           - condition: trigger
             id: button_center_tigger
         sequence:
-          # Immediate 1x-Press center button
-          - choose: []
-            default: !input button_center_x1_immediate
           - wait_for_trigger:
               - trigger: state 
                 entity_id: !input button_center_entity
@@ -372,9 +305,6 @@ action:
             else:
               - variables:
                   time: " {{ as_timestamp(now()) }} "
-              # Immediate 2x-Press middle button
-              - choose: []
-                default: !input button_center_x2_immediate
               - wait_for_trigger:
                   - trigger: state
                     entity_id: !input button_center_entity
@@ -396,9 +326,6 @@ action:
           - condition: trigger
             id: button_bottom_left_tigger
         sequence:
-          # Immediate 1x-Press bottom left button
-          - choose: []
-            default: !input button_bottom_left_x1_immediate
           - wait_for_trigger:
               - trigger: state 
                 entity_id: !input button_bottom_left_entity
@@ -413,9 +340,6 @@ action:
             else:
               - variables:
                   time: " {{ as_timestamp(now()) }} "
-              # Immediate 2x-Press bottom left button
-              - choose: []
-                default: !input button_bottom_left_x2_immediate
               - wait_for_trigger:
                   - trigger: state 
                     entity_id: !input button_center_entity
@@ -462,9 +386,6 @@ action:
           - condition: trigger
             id: button_bottom_right_tigger
         sequence:
-          # Immediate 1x-Press down button
-          - choose: []
-            default: !input button_bottom_right_x1_immediate
           - wait_for_trigger:
               - trigger: state
                 entity_id: !input button_bottom_right_entity
@@ -479,9 +400,6 @@ action:
             else:
               - variables:
                   time: " {{ as_timestamp(now()) }} "
-              # Immediate 2x-Press down button
-              - choose: []
-                default: !input button_bottom_right_x2_immediate
               - wait_for_trigger:
                   - trigger: state
                     entity_id: !input button_bottom_right_entity
@@ -589,9 +507,6 @@ action:
           - condition: trigger
             id: button_top_right_tigger
         sequence:
-          # Immediate 1x-Press top right button
-          - choose: []
-            default: !input button_top_right_x1_immediate
           - wait_for_trigger:
               - trigger: state
                 entity_id: !input button_top_left_entity
@@ -606,9 +521,6 @@ action:
             else:
               - variables:
                   time: " {{ as_timestamp(now()) }} "
-              # Immediate 2x-Press top right button
-              - choose: []
-                default: !input button_top_right_x2_immediate
               - wait_for_trigger:
                   - trigger: state
                     entity_id: !input button_top_left_entity
