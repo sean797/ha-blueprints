@@ -199,6 +199,7 @@ blueprint:
             action: {}
     settings:
       name: Settings
+      icon: mdi:cog-outline
       collapsed: true
       input:
         interval:
@@ -237,6 +238,7 @@ blueprint:
               mode: box
     entities:
       name: Entities
+      icon: mdi:import
       input:
         button_center_entity:
           name: Center button
