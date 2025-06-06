@@ -336,23 +336,23 @@ trigger:
   - trigger: state
     entity_id: !input button_center_entity
     id: button_center_tigger
-    to: 'on'
+#    to: 'on'
   - trigger: state
     entity_id: !input button_top_left_entity
     id: button_top_left_tigger
-    to: 'on'
+#    to: 'on'
   - trigger: state
     entity_id: !input button_top_right_entity
     id: button_top_right_tigger
-    to: 'on'
+#    to: 'on'
   - trigger: state
     entity_id: !input button_bottom_left_entity
     id: button_bottom_left_tigger
-    to: 'on'
+#    to: 'on'
   - trigger: state
     entity_id: !input button_bottom_right_entity
     id: button_bottom_right_tigger
-    to: 'on'
+#    to: 'on'
 
 action:
   - choose:
