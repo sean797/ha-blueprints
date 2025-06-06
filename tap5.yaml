@@ -14,231 +14,255 @@ blueprint:
       name: Entities
       input:
         button_center_entity:
-          name: Tap5 center button
+          name: Center button
           description: Select the sensor you wish to use.
           selector:
             entity:
               domain: binary_sensor
         button_top_left_entity:
-          name: Tap5 top left button
+          name: Top left button
           description: Select the sensor you wish to use.
           selector:
             entity:
               domain: binary_sensor
         button_top_right_entity:
-          name: Tap5 top right button
+          name: Top right button
           description: Select the sensor you wish to use.
           selector:
             entity:
               domain: binary_sensor
         button_bottom_left_entity:
-          name: Tap5 bottom left button
+          name: Bottom left button
           description: Select the sensor you wish to use.
           selector:
             entity:
               domain: binary_sensor
         button_bottom_right_entity:
-          name: Tap5 bottom right button
+          name: Bottom right button
           description: Select the sensor you wish to use.
           selector:
             entity:
               domain: binary_sensor
-    interval:
-      name: Max Interval between Clicks
-      description:
-        Maximum time interval between two clicks. Corresponds to the delay
-        from the last click to the triggering of the action.
-      default: 0.25
-      selector:
-        number:
-          min: 0.05
-          max: 2.0
-          unit_of_measurement: seconds
-          step: 0.01
-          mode: box
-    repeat_interval:
-      name: Interval between repeats
-      description: Time interval between repeats when holding up/down/left/right.
-      default: 0.3
-      selector:
-        number:
-          min: 0.05
-          max: 10.0
-          unit_of_measurement: seconds
-          step: 0.01
-          mode: box
-    repeat_count:
-      name: Max number of repeats
-      description: Max number of repeats. (when holding)
-      default: 100
-      selector:
-        number:
-          min: 0
-          max: 2000
-          step: 1
-          mode: box
-    button_center_x1:
-      name: Center button - single click
-      description: Action to run on single center button click.
-      default: []
-      selector:
-        action: {}
-    button_center_x2:
-      name: Center button - double click
-      description: Action to run on double center button click.
-      default: []
-      selector:
-        action: {}
-    button_center_x3:
-      name: Center button - triple click
-      description: Action to run on triple center button click.
-      default: []
-      selector:
-        action: {}
-    button_top_left_x1:
-      name: Top left button - single click
-      description: Action to run on single left button click.
-      default: []
-      selector:
-        action: {}
-    button_top_left_x2:
-      name: Top left button - double click
-      description: Action to run on double left button click.
-      default: []
-      selector:
-        action: {}
-    button_top_left_x3:
-      name: Top left button - triple click
-      description: Action to run on triple left button click.
-      default: []
-      selector:
-        action: {}
-    button_top_left_hold:
-      name: Top left button - hold
-      description: Action to run on left button hold.
-      default: []
-      selector:
-        action: {}
-    button_top_left_hold_repeated:
-      name: Top left button - hold - repeated
-      description: Action to run repeated on left button hold.
-      default: []
-      selector:
-        action: {}
-    button_top_left_release:
-      name: Top left button - release
-      description: Action to run on left button release.
-      default: []
-      selector:
-        action: {}
-    button_top_right_x1:
-      name: Top right button - single click
-      description: Action to run on single right button click.
-      default: []
-      selector:
-        action: {}
-    button_top_right_x2:
-      name: Top right button - double click
-      description: Action to run on double right button click.
-      default: []
-      selector:
-        action: {}
-    button_top_right_x3:
-      name: Top right button - triple click
-      description: Action to run on triple right button click.
-      default: []
-      selector:
-        action: {}
-    button_top_right_hold:
-      name: Top right button - hold
-      description: Action to run on right button hold.
-      default: []
-      selector:
-        action: {}
-    button_top_right_hold_repeated:
-      name: Top right button - hold - repeated
-      description: Action to run repeated on right button hold.
-      default: []
-      selector:
-        action: {}
-    button_top_right_release:
-      name: Top right button - release
-      description: Action to run on right button release.
-      default: []
-      selector:
-        action: {}
-    button_bottom_left_x1:
-      name: Bottom left button - single click
-      description: Action to run on single up button click.
-      default: []
-      selector:
-        action: {}
-    button_bottom_left_x2:
-      name: Bottom left button - double click
-      description: Action to run on double up button click.
-      default: []
-      selector:
-        action: {}
-    button_bottom_left_x3:
-      name: Bottom left button - triple click
-      description: Action to run on triple up button click.
-      default: []
-      selector:
-        action: {}
-    button_bottom_left_hold:
-      name: Bottom left button - hold
-      description: Action to run on up button hold.
-      default: []
-      selector:
-        action: {}
-    button_bottom_left_hold_repeated:
-      name: Bottom left button - hold - repeated
-      description: Action to run repeated on up button hold.
-      default: []
-      selector:
-        action: {}
-    button_bottom_left_release:
-      name: Bottom left button - release
-      description: Action to run on up button release.
-      default: []
-      selector:
-        action: {}
-    button_bottom_right_x1:
-      name: Bottom right button - single click
-      description: Action to run on single down button click.
-      default: []
-      selector:
-        action: {}
-    button_bottom_right_x2:
-      name: Bottom right button - double click
-      description: Action to run on double down button click.
-      default: []
-      selector:
-        action: {}
-    button_bottom_right_x3:
-      name: Bottom right button - triple click
-      description: Action to run on triple down button click.
-      default: []
-      selector:
-        action: {}
-    button_bottom_right_hold:
-      name: Bottom right button - hold
-      description: Action to run on down button hold.
-      default: []
-      selector:
-        action: {}
-    button_bottom_right_hold_repeated:
-      name: Bottom right button - hold - repeated
-      description: Action to run repeated on down button hold.
-      default: []
-      selector:
-        action: {}
-    button_bottom_right_release:
-      name: Bottom right button - release
-      description: Action to run on down button release.
-      default: []
-      selector:
-        action: {}
+    settings:
+      name: Settings
+      collapsed: true
+      input:
+        interval:
+          name: Max Interval between Clicks
+          description:
+            Maximum time interval between two clicks. Corresponds to the delay
+            from the last click to the triggering of the action.
+          default: 0.25
+          selector:
+            number:
+              min: 0.05
+              max: 2.0
+              unit_of_measurement: seconds
+              step: 0.01
+              mode: box
+        repeat_interval:
+          name: Interval between repeats
+          description: Time interval between repeats when holding up/down/left/right.
+          default: 0.3
+          selector:
+            number:
+              min: 0.05
+              max: 10.0
+              unit_of_measurement: seconds
+              step: 0.01
+              mode: box
+        repeat_count:
+          name: Max number of repeats
+          description: Max number of repeats. (when holding)
+          default: 100
+          selector:
+            number:
+              min: 0
+              max: 2000
+              step: 1
+              mode: box
+    center_button:
+      name: Center button
+      collapsed: true
+      input:
+        button_center_x1:
+          name: Center button - single click
+          description: Action to run on single center button click.
+          default: []
+          selector:
+            action: {}
+        button_center_x2:
+          name: Center button - double click
+          description: Action to run on double center button click.
+          default: []
+          selector:
+            action: {}
+        button_center_x3:
+          name: Center button - triple click
+          description: Action to run on triple center button click.
+          default: []
+          selector:
+            action: {}
+    top_left_button:
+      name: Top left button
+      collapsed: true
+      input:
+        button_top_left_x1:
+          name: Top left button - single click
+          description: Action to run on single left button click.
+          default: []
+          selector:
+            action: {}
+        button_top_left_x2:
+          name: Top left button - double click
+          description: Action to run on double left button click.
+          default: []
+          selector:
+            action: {}
+        button_top_left_x3:
+          name: Top left button - triple click
+          description: Action to run on triple left button click.
+          default: []
+          selector:
+            action: {}
+        button_top_left_hold:
+          name: Top left button - hold
+          description: Action to run on left button hold.
+          default: []
+          selector:
+            action: {}
+        button_top_left_hold_repeated:
+          name: Top left button - hold - repeated
+          description: Action to run repeated on left button hold.
+          default: []
+          selector:
+            action: {}
+        button_top_left_release:
+          name: Top left button - release
+          description: Action to run on left button release.
+          default: []
+          selector:
+            action: {}
+    top_right_button:
+      name: Top right button
+      collapsed: true
+      input:
+        button_top_right_x1:
+          name: Top right button - single click
+          description: Action to run on single right button click.
+          default: []
+          selector:
+            action: {}
+        button_top_right_x2:
+          name: Top right button - double click
+          description: Action to run on double right button click.
+          default: []
+          selector:
+            action: {}
+        button_top_right_x3:
+          name: Top right button - triple click
+          description: Action to run on triple right button click.
+          default: []
+          selector:
+            action: {}
+        button_top_right_hold:
+          name: Top right button - hold
+          description: Action to run on right button hold.
+          default: []
+          selector:
+            action: {}
+        button_top_right_hold_repeated:
+          name: Top right button - hold - repeated
+          description: Action to run repeated on right button hold.
+          default: []
+          selector:
+            action: {}
+        button_top_right_release:
+          name: Top right button - release
+          description: Action to run on right button release.
+          default: []
+          selector:
+            action: {}
+    bottom_left_button:
+      name: Bottom left button
+      collapsed: true
+      input:
+        button_bottom_left_x1:
+          name: Bottom left button - single click
+          description: Action to run on single up button click.
+          default: []
+          selector:
+            action: {}
+        button_bottom_left_x2:
+          name: Bottom left button - double click
+          description: Action to run on double up button click.
+          default: []
+          selector:
+            action: {}
+        button_bottom_left_x3:
+          name: Bottom left button - triple click
+          description: Action to run on triple up button click.
+          default: []
+          selector:
+            action: {}
+        button_bottom_left_hold:
+          name: Bottom left button - hold
+          description: Action to run on up button hold.
+          default: []
+          selector:
+            action: {}
+        button_bottom_left_hold_repeated:
+          name: Bottom left button - hold - repeated
+          description: Action to run repeated on up button hold.
+          default: []
+          selector:
+            action: {}
+        button_bottom_left_release:
+          name: Bottom left button - release
+          description: Action to run on up button release.
+          default: []
+          selector:
+            action: {}
+    bottom_right_button:
+      name: Bottom right button
+      collapsed: true
+      input:
+        button_bottom_right_x1:
+          name: Bottom right button - single click
+          description: Action to run on single down button click.
+          default: []
+          selector:
+            action: {}
+        button_bottom_right_x2:
+          name: Bottom right button - double click
+          description: Action to run on double down button click.
+          default: []
+          selector:
+            action: {}
+        button_bottom_right_x3:
+          name: Bottom right button - triple click
+          description: Action to run on triple down button click.
+          default: []
+          selector:
+            action: {}
+        button_bottom_right_hold:
+          name: Bottom right button - hold
+          description: Action to run on down button hold.
+          default: []
+          selector:
+            action: {}
+        button_bottom_right_hold_repeated:
+          name: Bottom right button - hold - repeated
+          description: Action to run repeated on down button hold.
+          default: []
+          selector:
+            action: {}
+        button_bottom_right_release:
+          name: Bottom right button - release
+          description: Action to run on down button release.
+          default: []
+          selector:
+            action: {}
 
 ###########################################
 #                 Start                   #
