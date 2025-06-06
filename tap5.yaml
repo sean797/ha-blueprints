@@ -285,6 +285,14 @@ trigger:
     id: button_bottom_left_trigger
     to: 'off'
   - trigger: state
+    entity_id: !input button_bottom_left_entity
+    id: button_bottom_left_trigger_hold
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  - trigger: state
     entity_id: !input button_bottom_right_entity
     id: button_bottom_right_trigger
     to: 'off'
@@ -388,7 +396,7 @@ action:
             default: !input button_bottom_left_release
 
       ####################################
-      #           Bottom right button            #
+      #           Bottom right button    #
       ####################################
       - conditions:
           - condition: trigger
