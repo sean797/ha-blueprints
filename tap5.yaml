@@ -556,11 +556,13 @@ action:
                   - trigger: state
                     entity_id: !input button_top_left_entity
                     to: 'off'
+                    from: 'on'
                 timeout: "{{interval}}"
                 continue_on_timeout: true
               - if:
                 - condition: template
-                  value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
+#                  value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
+                  value_template: " {{ trigger.to_state.last_updated - trigger.from_state.last_updated  > as_timedelta(interval) }}"
                 then: !input button_top_left_x1
                 else: !input button_top_left_hold
             else:
