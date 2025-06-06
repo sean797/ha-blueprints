@@ -256,7 +256,6 @@ trigger:
   - trigger: state
     entity_id: !input button_center_entity
     id: button_center_tigger
-#    to: 'on'
   - trigger: state
     entity_id: !input button_top_left_entity
     id: button_top_left_tigger
@@ -272,15 +271,15 @@ trigger:
   - trigger: state
     entity_id: !input button_top_right_entity
     id: button_top_right_tigger
-#    to: 'on'
+    to: 'off'
   - trigger: state
     entity_id: !input button_bottom_left_entity
     id: button_bottom_left_tigger
-#    to: 'on'
+    to: 'off'
   - trigger: state
     entity_id: !input button_bottom_right_entity
     id: button_bottom_right_tigger
-#    to: 'on'
+    to: 'off'
 
 action:
   - choose:
@@ -320,7 +319,7 @@ action:
                 else: !input button_center_x3
 
       ####################################
-      #            Bottom left button             #
+      #            Bottom left button    #
       ####################################
       - conditions:
           - condition: trigger
@@ -342,7 +341,7 @@ action:
                   time: " {{ as_timestamp(now()) }} "
               - wait_for_trigger:
                   - trigger: state 
-                    entity_id: !input button_center_entity
+                    entity_id: !input button_bottom_left_entity
                     to: 'on'
                 timeout: "{{interval}}"
                 continue_on_timeout: true
@@ -353,10 +352,11 @@ action:
                 then: !input button_bottom_left_x2
                 # 3x-Press bottom left button
                 else: !input button_bottom_left_x3
-      # Hold up button
+
+      # Hold bottom left button
       - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.command == "move_with_on_off" }}'
+          - condition: trigger
+            id: button_bottom_left_trigger_hold
         sequence:
           # Hold up button
           - choose: []
@@ -372,8 +372,8 @@ action:
                 - wait_for_trigger:
                     - trigger: state
                       entity_id: !input button_center_entity
-                      from: 'on'
-                      to: 'off'
+                      from: 'off'
+                      to: 'on'
                   timeout: "{{repeat_interval}}"
           # Release up button
           - choose: []
