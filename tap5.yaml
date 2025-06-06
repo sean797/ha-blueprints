@@ -345,10 +345,7 @@ trigger:
     entity_id: !input button_top_left_entity
     id: button_top_left_tigger_hold
     to: 'on'
-    for: 
-      hours: 0
-      minutes: 0
-      seconds: 1
+    for: "{{ interval }}" 
   - trigger: state
     entity_id: !input button_top_right_entity
     id: button_top_right_tigger
