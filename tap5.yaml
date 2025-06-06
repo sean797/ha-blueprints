@@ -273,6 +273,14 @@ trigger:
     id: button_top_right_trigger
     to: 'off'
   - trigger: state
+    entity_id: !input button_top_left_entity
+    id: button_top_right_trigger_hold
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  - trigger: state
     entity_id: !input button_bottom_left_entity
     id: button_bottom_left_trigger
     to: 'off'
@@ -509,21 +517,21 @@ action:
         sequence:
           - wait_for_trigger:
               - trigger: state
-                entity_id: !input button_top_left_entity
+                entity_id: !input button_top_right_entity
                 to: 'on'
             timeout: "{{interval}}"
             continue_on_timeout: true
           - if:
               - condition: template
                 value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
-            # 1x-Press right button
+            # 1x-Press top right button
             then: !input button_top_right_x1
             else:
               - variables:
                   time: " {{ as_timestamp(now()) }} "
               - wait_for_trigger:
                   - trigger: state
-                    entity_id: !input button_top_left_entity
+                    entity_id: !input button_top_right_entity
                     to: 'on'
                 timeout: "{{interval}}"
                 continue_on_timeout: true
@@ -534,14 +542,13 @@ action:
                 then: !input button_top_right_x2
                 # 3x-Press right button
                 else: !input button_top_right_x3
-      # Hold right button
+
+      # Hold top right button
       - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.command == "hold" }}'
-          - condition: template
-            value_template: "{{ trigger.event.data.args == [3328,0] }}"
+          - condition: trigger
+            id: button_top_right_trigger_hold
         sequence:
-          # Hold right button
+          # Hold top right button
           - choose: []
             default: !input button_top_right_hold
           - repeat:
@@ -549,7 +556,7 @@ action:
                 - condition: template
                   value_template: "{{ wait.trigger is not none or repeat.index >= repeat_count }}"
               sequence:
-                # Hold right button repeated
+                # Hold top right button repeated
                 - choose: []
                   default: !input button_top_right_hold_repeated
                 - wait_for_trigger:
