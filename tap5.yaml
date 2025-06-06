@@ -1,9 +1,9 @@
 blueprint:
   source_url: https://raw.githubusercontent.com/sean797/ha-blueprints/refs/heads/main/tap5.yaml
-  name: Tap5 button (double and triple clicks)
+  name: Tap buttons
   description:
-    "Control anything with an Tap5 via digital inputs.
-    Every button is fully customizable and can be double and triple clicked.
+    "Control anything with an tap button via digital inputs.
+    Every button is fully customizable and can be single, double and triple clicked.
     When holding a button you can also choose an action to trigger repeatedly."
   domain: automation
   author: sean797
