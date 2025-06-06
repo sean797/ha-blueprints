@@ -588,23 +588,18 @@ action:
             default: !input button_top_left_hold
           - repeat:
               until:
-                - condition: or
-                  conditions:
-                    - condition: template
-                      value_template: "{{ wait.trigger is not none or repeat.index >= repeat_count }}"
-                    - condition: state
-                      entity_id: !input button_top_left_entity
-                      state: "off"
+                - condition: template
+                  value_template: "{{ wait.trigger is not none or repeat.index >= repeat_count }}"
               sequence:
                 # Hold left button repeated
                 - choose: []
                   default: !input button_top_left_hold_repeated
-         #       - wait_for_trigger:
-         #           - trigger: state 
-         #             entity_id: !input button_top_left_entity
-         #             to: 'off'
-          #            from: 'on'
-          #        timeout: "{{repeat_interval}}"
+                - wait_for_trigger:
+                    - trigger: state 
+                      entity_id: !input button_top_left_entity
+                      to: 'off'
+                      from: 'on'
+                  timeout: "{{repeat_interval}}"
           # Release left button
           - choose: []
             default: !input button_top_left_release
