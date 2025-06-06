@@ -111,25 +111,9 @@ blueprint:
       default: []
       selector:
         action: {}
-    button_top_left_x1_immediate:
-      name: Top left button - single click (immediate response)
-      description:
-        Action to run as soon as the left button is clicked, without waiting
-        if there's a second click or not.
-      default: []
-      selector:
-        action: {}
     button_top_left_x2:
       name: Top left button - double click
       description: Action to run on double left button click.
-      default: []
-      selector:
-        action: {}
-    button_top_left_x2_immediate:
-      name: Top left button - double click (immediate response)
-      description:
-        Action to run as soon as the left button is clicked the second
-        time, without waiting if there's a third click or not.
       default: []
       selector:
         action: {}
@@ -544,9 +528,6 @@ action:
           - condition: trigger
             id: button_top_left_tigger
         sequence:
-          # Immediate 1x-Press top left button
-          - choose: []
-            default: !input button_top_left_x1_immediate
           - wait_for_trigger:
               - trigger: state 
                 entity_id: !input button_top_left_entity
@@ -561,9 +542,6 @@ action:
             else:
               - variables:
                   time: " {{ as_timestamp(now()) }} "
-              # Immediate 2x-Press left button
-              - choose: []
-                default: !input button_top_left_x2_immediate
               - wait_for_trigger:
                   - trigger: state 
                     entity_id: !input button_top_left_entity
