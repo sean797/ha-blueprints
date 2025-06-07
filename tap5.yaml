@@ -245,31 +245,41 @@ blueprint:
           description: Select the sensor you wish to use.
           selector:
             entity:
+              filter:
               domain: binary_sensor
+              multiple: true
         button_top_left_entity:
           name: Top left button
           description: Select the sensor you wish to use.
           selector:
-            entity: 
+            entity:
+              filter:
               domain: binary_sensor
+              multiple: true
         button_top_right_entity:
           name: Top right button
           description: Select the sensor you wish to use.
           selector:
             entity:
+              filter:
               domain: binary_sensor
+              multiple: true
         button_bottom_left_entity:
           name: Bottom left button
           description: Select the sensor you wish to use.
-          selector: 
+          selector:
             entity:
+              filter:
               domain: binary_sensor
+              multiple: true
         button_bottom_right_entity:
           name: Bottom right button
           description: Select the sensor you wish to use.
           selector:
             entity:
+              filter:
               domain: binary_sensor
+              multiple: true
 
 ###########################################
 #                 Start                   #
