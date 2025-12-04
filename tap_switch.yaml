@@ -33,6 +33,29 @@ blueprint:
           default: []
           selector:
             action: {}
+    bottom_center_button:
+      name: Bottom center button
+      icon: mdi:bullseye-arrow
+      collapsed: true
+      input:
+        button_bottom_center_x1:
+          name: Bottom center button - single click
+          description: Action to run on single bottom center button click.
+          default: []
+          selector:
+            action: {}
+        button_bottom_center_x2:
+          name: Bottom center button - double click
+          description: Action to run on double bottom center button click.
+          default: []
+          selector:
+            action: {}
+        button_bottom_center_x3:
+          name: Bottom center button - triple click
+          description: Action to run on triple bottom center button click.
+          default: []
+          selector:
+            action: {}
     top_left_button:
       name: Top left button
       icon: mdi:arrow-top-left
@@ -247,6 +270,13 @@ blueprint:
             entity:
               domain: binary_sensor
               multiple: true
+        button_bottom_center_entity:
+          name: Bottom center button
+          description: Select the sensor you wish to use.
+          selector:
+            entity:
+              domain: binary_sensor
+              multiple: true
         button_top_left_entity:
           name: Top left button
           description: Select the sensor you wish to use.
@@ -289,6 +319,7 @@ variables:
   repeat_interval: !input repeat_interval
   repeat_count: !input repeat_count
   button_top_center_entity: !input button_top_center_entity
+  button_bottom_center_entity: !input button_bottom_center_entity
   button_top_left_entity: !input button_top_left_entity
   button_top_right_entity: !input button_top_right_entity
   button_bottom_left_entity: !input button_bottom_left_entity
@@ -298,6 +329,9 @@ trigger:
   - trigger: state
     entity_id: !input button_top_center_entity
     id: button_top_center_trigger
+  - trigger: state
+    entity_id: !input button_bottom_center_entity
+    id: button_bottom_center_trigger
   - trigger: state
     entity_id: !input button_top_left_entity
     id: button_top_left_trigger
@@ -354,7 +388,7 @@ trigger:
 action:
   - choose:
       ####################################
-      #          Top center button           #
+      #          Top center button       #
       ####################################
       - conditions:
           - condition: trigger
@@ -387,6 +421,41 @@ action:
                 then: !input button_top_center_x2
                 # 3x-Press top center button
                 else: !input button_top_center_x3
+
+      ###################################
+      #          Bottom center button      #
+      ###################################
+      - conditions:
+          - condition: trigger
+            id: button_bottom_center_trigger
+        sequence:
+          - wait_for_trigger:
+              - trigger: state
+                entity_id: !input button_bottom_center_entity
+                to: 'on'
+            timeout: "{{interval}}"
+            continue_on_timeout: true
+          - if:
+              - condition: template
+                value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
+            # 1x-Press bottom center button
+            then: !input button_bottom_center_x1
+            else:
+              - variables:
+                  time: " {{ as_timestamp(now()) }} "
+              - wait_for_trigger:
+                  - trigger: state
+                    entity_id: !input button_bottom_center_entity
+                    to: 'on'
+                timeout: "{{interval}}"
+                continue_on_timeout: true
+              - if:
+                  - condition: template
+                    value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
+                # 2x-Press bottom center button
+                then: !input button_bottom_center_x2
+                # 3x-Press bottom center button
+                else: !input button_bottom_center_x3
 
       ####################################
       #            Bottom left button    #
