@@ -266,36 +266,42 @@ blueprint:
         button_top_center_entity:
           name: Top center button
           description: Select the sensor you wish to use.
+          default: []
           selector:
             entity:
               domain: binary_sensor
         button_bottom_center_entity:
           name: Bottom center button
           description: Select the sensor you wish to use.
+          default: []
           selector:
             entity:
               domain: binary_sensor
         button_top_left_entity:
           name: Top left button
           description: Select the sensor you wish to use.
+          default: []
           selector:
             entity:
               domain: binary_sensor
         button_top_right_entity:
           name: Top right button
           description: Select the sensor you wish to use.
+          default: []
           selector:
             entity:
               domain: binary_sensor
         button_bottom_left_entity:
           name: Bottom left button
           description: Select the sensor you wish to use.
+          default: []
           selector:
             entity:
               domain: binary_sensor
         button_bottom_right_entity:
           name: Bottom right button
           description: Select the sensor you wish to use.
+          default: []
           selector:
             entity:
               domain: binary_sensor
