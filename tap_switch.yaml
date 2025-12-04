@@ -12,7 +12,7 @@ blueprint:
   input:
     top_center_button:
       name: Top center button
-      icon: mdi:bullseye-arrow
+      icon: mdi:arrow-up
       collapsed: true
       input:
         button_top_center_x1:
@@ -35,7 +35,7 @@ blueprint:
             action: {}
     bottom_center_button:
       name: Bottom center button
-      icon: mdi:bullseye-arrow
+      icon: mdi:arrow-down
       collapsed: true
       input:
         button_bottom_center_x1:
