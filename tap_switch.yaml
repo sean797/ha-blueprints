@@ -10,26 +10,26 @@ blueprint:
   homeassistant:
     min_version: 2024.6.0
   input:
-    center_button:
-      name: Center button
+    top_center_button:
+      name: Top center button
       icon: mdi:bullseye-arrow
       collapsed: true
       input:
-        button_center_x1:
-          name: Center button - single click
-          description: Action to run on single center button click.
+        button_top_center_x1:
+          name: Top center button - single click
+          description: Action to run on single top center button click.
           default: []
           selector:
             action: {}
-        button_center_x2:
-          name: Center button - double click
-          description: Action to run on double center button click.
+        button_top_center_x2:
+          name: Top center button - double click
+          description: Action to run on double top center button click.
           default: []
           selector:
             action: {}
-        button_center_x3:
-          name: Center button - triple click
-          description: Action to run on triple center button click.
+        button_top_center_x3:
+          name: Top center button - triple click
+          description: Action to run on triple top center button click.
           default: []
           selector:
             action: {}
@@ -240,8 +240,8 @@ blueprint:
       name: Entities
       icon: mdi:import
       input:
-        button_center_entity:
-          name: Center button
+        button_top_center_entity:
+          name: Top center button
           description: Select the sensor you wish to use.
           selector:
             entity:
@@ -288,7 +288,7 @@ variables:
   interval: !input interval
   repeat_interval: !input repeat_interval
   repeat_count: !input repeat_count
-  button_center_entity: !input button_center_entity
+  button_top_center_entity: !input button_top_center_entity
   button_top_left_entity: !input button_top_left_entity
   button_top_right_entity: !input button_top_right_entity
   button_bottom_left_entity: !input button_bottom_left_entity
@@ -296,8 +296,8 @@ variables:
 
 trigger:
   - trigger: state
-    entity_id: !input button_center_entity
-    id: button_center_trigger
+    entity_id: !input button_top_center_entity
+    id: button_top_center_trigger
   - trigger: state
     entity_id: !input button_top_left_entity
     id: button_top_left_trigger
@@ -354,39 +354,39 @@ trigger:
 action:
   - choose:
       ####################################
-      #          center button           #
+      #          Top center button           #
       ####################################
       - conditions:
           - condition: trigger
-            id: button_center_trigger
+            id: button_top_center_trigger
         sequence:
           - wait_for_trigger:
               - trigger: state 
-                entity_id: !input button_center_entity
+                entity_id: !input button_top_center_entity
                 to: 'on'
             timeout: "{{interval}}"
             continue_on_timeout: true
           - if:
               - condition: template
                 value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
-            # 1x-Press center button
-            then: !input button_center_x1
+            # 1x-Press top center button
+            then: !input button_top_center_x1
             else:
               - variables:
                   time: " {{ as_timestamp(now()) }} "
               - wait_for_trigger:
                   - trigger: state
-                    entity_id: !input button_center_entity
+                    entity_id: !input button_top_center_entity
                     to: 'on'
                 timeout: "{{interval}}"
                 continue_on_timeout: true
               - if:
                   - condition: template
                     value_template: "{{(as_timestamp(now()) - time ) >= interval }}"
-                # 2x-Press center button
-                then: !input button_center_x2
-                # 3x-Press center button
-                else: !input button_center_x3
+                # 2x-Press top center button
+                then: !input button_top_center_x2
+                # 3x-Press top center button
+                else: !input button_top_center_x3
 
       ####################################
       #            Bottom left button    #
@@ -441,7 +441,7 @@ action:
                   default: !input button_bottom_left_hold_repeated
                 - wait_for_trigger:
                     - trigger: state
-                      entity_id: !input button_center_entity
+                      entity_id: !input button_bottom_left_entity
                       from: 'off'
                       to: 'on'
                   timeout: "{{repeat_interval}}"
