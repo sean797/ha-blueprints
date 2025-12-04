@@ -1,5 +1,5 @@
 blueprint:
-  source_url: https://raw.githubusercontent.com/sean797/ha-blueprints/refs/heads/main/tap5.yaml
+  source_url: https://raw.githubusercontent.com/sean797/ha-blueprints/refs/heads/main/tap_switch.yaml
   name: Tap buttons
   description:
     "Control anything with an tap button via digital inputs.
