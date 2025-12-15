@@ -329,9 +329,13 @@ trigger:
   - trigger: state
     entity_id: !input button_top_center_entity
     id: button_top_center_trigger
+    to: 'off'
+    from: 'on'
   - trigger: state
     entity_id: !input button_bottom_center_entity
     id: button_bottom_center_trigger
+    to: 'off'
+    from: 'on'
   - trigger: state
     entity_id: !input button_top_left_entity
     id: button_top_left_trigger
