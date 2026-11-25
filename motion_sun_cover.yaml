@@ -70,10 +70,6 @@ blueprint:
 variables:
   window_list: !input windows
   sun_offset_minutes: !input sun_offset
-  sun_offset_after: >-
-    {% set m = sun_offset_minutes | int(0) %}{{ '%02d:%02d:%02d' | format(m // 60, m % 60, 0) }}
-  sun_offset_before: >-
-    {% set m = sun_offset_minutes | int(0) %}{{ '-%02d:%02d:%02d' | format(m // 60, m % 60, 0) }}
 
 triggers:
   - id: motion_detected
@@ -117,14 +113,31 @@ actions:
               {% endif %}
           - choose:
               - conditions:
-                  - condition: and
-                    conditions:
-                      - condition: sun
-                        after: sunrise
-                        after_offset: "{{ sun_offset_after }}"
-                      - condition: sun
-                        before: sunset
-                        before_offset: "{{ sun_offset_before }}"
+                  - condition: template
+                    value_template: >
+                      {% set offset = (sun_offset_minutes | int(0)) * 60 %}
+                      {% set now_ts = as_timestamp(now()) %}
+                      {% set next_rising = as_timestamp(state_attr('sun.sun', 'next_rising')) %}
+                      {% set next_setting = as_timestamp(state_attr('sun.sun', 'next_setting')) %}
+                      {% if is_state('sun.sun', 'above_horizon') %}
+                        {% set sunset_ts = next_setting %}
+                        {% if next_rising > next_setting %}
+                          {% set sunrise_ts = next_rising - 86400 %}
+                        {% else %}
+                          {% set sunrise_ts = next_rising %}
+                        {% endif %}
+                      {% else %}
+                        {% if next_rising < next_setting %}
+                          {% set sunrise_ts = next_rising %}
+                          {% set sunset_ts = next_setting %}
+                        {% else %}
+                          {% set sunrise_ts = next_rising - 86400 %}
+                          {% set sunset_ts = next_setting - 86400 %}
+                        {% endif %}
+                      {% endif %}
+                      {% set day_start = sunrise_ts + offset %}
+                      {% set day_end = sunset_ts - offset %}
+                      {{ day_start <= now_ts <= day_end }}
                 sequence:
                   - action: cover.open_cover
                     target:
