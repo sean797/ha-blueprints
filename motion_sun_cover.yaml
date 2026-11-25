@@ -70,7 +70,10 @@ blueprint:
 variables:
   window_list: !input windows
   sun_offset_minutes: !input sun_offset
-  sun_offset_seconds: "{{ (sun_offset_minutes | int(0)) * 60 }}"
+  sun_offset_after: >-
+    {% set m = sun_offset_minutes | int(0) %}{{ '%02d:%02d:%02d' | format(m // 60, m % 60, 0) }}
+  sun_offset_before: >-
+    {% set m = sun_offset_minutes | int(0) %}{{ '-%02d:%02d:%02d' | format(m // 60, m % 60, 0) }}
 
 triggers:
   - id: motion_detected
@@ -118,10 +121,10 @@ actions:
                     conditions:
                       - condition: sun
                         after: sunrise
-                        after_offset: "{{ sun_offset_seconds | int }}"
+                        after_offset: "{{ sun_offset_after }}"
                       - condition: sun
                         before: sunset
-                        before_offset: "{{ (sun_offset_seconds | int) * -1 }}"
+                        before_offset: "{{ sun_offset_before }}"
                 sequence:
                   - action: cover.open_cover
                     target:
