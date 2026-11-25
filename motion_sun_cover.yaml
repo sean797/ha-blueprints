@@ -66,10 +66,26 @@ blueprint:
           step: 1
           mode: slider
           unit_of_measurement: min
+    manual_override_detection:
+      name: Manual override detection
+      description: >
+        Shelly and similar covers often change current_position without changing
+        open/closed state. Use "Shelly / position" if manual moves are not detected.
+      default: standard
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - label: Standard (context-based)
+              value: standard
+            - label: Shelly / position changes
+              value: shelly_position
 
 variables:
   window_list: !input windows
+  cover_list: !input covers
   sun_offset_minutes: !input sun_offset
+  override_detection: !input manual_override_detection
 
 triggers:
   - id: motion_detected
@@ -80,6 +96,15 @@ triggers:
   - id: cover_manual
     trigger: state
     entity_id: !input covers
+  - id: cover_manual
+    trigger: state
+    entity_id: !input covers
+    attribute: current_position
+  - id: cover_manual
+    trigger: event
+    event_type: call_service
+    event_data:
+      domain: cover
 
 conditions: []
 
@@ -90,7 +115,29 @@ actions:
             id: cover_manual
           - condition: template
             value_template: >
-              {{ trigger.context.parent_id is none }}
+              {% if trigger.platform == 'event' %}
+                {% set ctx = trigger.event.context %}
+                {% set data = trigger.event.data %}
+                {% set svc = data.service %}
+                {% if svc not in ['open_cover', 'close_cover', 'set_cover_position', 'stop_cover', 'toggle'] %}
+                  false
+                {% else %}
+                  {% set raw = data.service_data.entity_id | default([], true) %}
+                  {% set ids = [raw] if raw is string else (raw if raw is iterable else []) %}
+                  {% set wanted = cover_list %}
+                  {% set hit = ids | select('in', wanted) | list | length > 0 %}
+                  {% set pid = ctx.parent_id | default(none, true) %}
+                  {{ hit and (pid is none or pid == '') }}
+                {% endif %}
+              {% else %}
+                {% set ctx = trigger.context %}
+                {% set pid = ctx.parent_id | default(none, true) %}
+                {% if override_detection == 'shelly_position' and trigger.attribute == 'current_position' %}
+                  true
+                {% else %}
+                  {{ pid is none or pid == '' }}
+                {% endif %}
+              {% endif %}
         sequence:
           - action: timer.start
             target:
