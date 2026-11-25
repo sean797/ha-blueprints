@@ -1,0 +1,136 @@
+blueprint:
+  name: Motion-driven cover (sun offset)
+  description: >
+    On motion, open covers during daylight (sunrise + offset through sunset − offset)
+    and close them at night. Skips action when any configured window is open or while
+    a manual-override timer is running after a user-adjusted cover move.
+  domain: automation
+  input:
+    motion_sensors:
+      name: Motion sensor(s)
+      description: Motion sensors that trigger cover adjustment.
+      selector:
+        entity:
+          multiple: true
+          filter:
+            - domain: binary_sensor
+              device_class:
+                - motion
+                - occupancy
+                - presence
+    covers:
+      name: Cover(s)
+      description: Covers to open or close based on sun position.
+      selector:
+        entity:
+          multiple: true
+          filter:
+            - domain: cover
+    manual_override_duration:
+      name: Manual override duration
+      description: >
+        After a manual cover change, automation is suppressed for this long.
+      default: "00:15:00"
+      selector:
+        duration:
+    manual_override_timer:
+      name: Manual override timer
+      description: >
+        Create a Timer helper (Settings → Helpers → Timer) for this automation.
+        It is started when a cover is moved manually and blocks automated moves until it finishes.
+      selector:
+        entity:
+          filter:
+            - domain: timer
+    windows:
+      name: Window sensor(s) (optional)
+      description: >
+        Binary sensors that are on when a window is open (for example
+        binary_sensor.a128_2_a128_input39). Leave empty to ignore windows.
+      default: []
+      selector:
+        entity:
+          multiple: true
+          filter:
+            - domain: binary_sensor
+    sun_offset:
+      name: Sun offset (minutes)
+      description: >
+        Minutes after sunrise before covers may open, and minutes before sunset when
+        daylight ends (covers close). Use 0 for exact sunrise/sunset.
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 180
+          step: 1
+          mode: slider
+          unit_of_measurement: min
+
+variables:
+  window_list: !input windows
+  sun_offset_minutes: !input sun_offset
+  sun_offset_seconds: "{{ (sun_offset_minutes | int(0)) * 60 }}"
+
+triggers:
+  - id: motion_detected
+    trigger: state
+    entity_id: !input motion_sensors
+    from: "off"
+    to: "on"
+  - id: cover_manual
+    trigger: state
+    entity_id: !input covers
+
+conditions: []
+
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: cover_manual
+          - condition: template
+            value_template: >
+              {{ trigger.context.parent_id is none }}
+        sequence:
+          - action: timer.start
+            target:
+              entity_id: !input manual_override_timer
+            data:
+              duration: !input manual_override_duration
+      - conditions:
+          - condition: trigger
+            id: motion_detected
+        sequence:
+          - condition: state
+            entity_id: !input manual_override_timer
+            state: idle
+          - condition: template
+            value_template: >
+              {% if window_list | length == 0 %}
+                true
+              {% else %}
+                {{ expand(window_list) | selectattr('state', 'eq', 'on') | list | length == 0 }}
+              {% endif %}
+          - choose:
+              - conditions:
+                  - condition: and
+                    conditions:
+                      - condition: sun
+                        after: sunrise
+                        after_offset: "{{ sun_offset_seconds | int }}"
+                      - condition: sun
+                        before: sunset
+                        before_offset: "{{ (sun_offset_seconds | int) * -1 }}"
+                sequence:
+                  - action: cover.open_cover
+                    target:
+                      entity_id: !input covers
+              - conditions: []
+                sequence:
+                  - action: cover.close_cover
+                    target:
+                      entity_id: !input covers
+
+mode: queued
+max: 5
